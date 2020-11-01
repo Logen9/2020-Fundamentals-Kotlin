@@ -11,10 +11,10 @@ fun main() {
     val p = Programmer<Kotlin>()
 
     //TODO: uncomment all
-//    p.learn(Kotlin("basics"))
-//
-//    p.learn(Kotlin("generics"))
-//    p.learn(Kotlin("coroutines"))
+    p.learn(Kotlin("basics"))
+
+    p.learn(Kotlin("generics"))
+    p.learn(Kotlin("coroutines"))
 
     println(p.howManyConceptsDoIKnow())
     // should be equal to 3
@@ -22,7 +22,7 @@ fun main() {
     println(p.lastConcept())
     //should be Kotlin(element=coroutines)
 
-//    p.forget(Kotlin("generics"))
+    p.forget(Kotlin("generics"))
     println(p.howManyConceptsDoIKnow())
     // should be equal to 2
 }
@@ -30,13 +30,21 @@ fun main() {
 
 class Programmer<T: Language> {
 
-    fun howManyConceptsDoIKnow(): Int = TODO()
+    val knownConcepts: ArrayList<T> = ArrayList<T>()
 
-    // TODO: add "learn" function with new concept
+    fun howManyConceptsDoIKnow(): Int {
+        return knownConcepts.size
+    }
 
-    //TODO: add "forget" function with one concept to forget
+    fun learn(concept : T) {
+        knownConcepts.add(concept)
+    }
 
-    fun lastConcept(): T = TODO()
+    fun forget(concept : T) {
+        knownConcepts.remove(concept)
+    }
+
+    fun lastConcept(): T = knownConcepts.last()
 }
 
 interface Language{

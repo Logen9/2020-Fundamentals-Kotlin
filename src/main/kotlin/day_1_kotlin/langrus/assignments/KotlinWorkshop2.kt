@@ -42,7 +42,13 @@ object KotlinWorkshop2 {
             // Сохраняем введённое с клавиатуры число в "userInput".
             val userInput: Int = scanner.nextInt()
             if (true) {
-
+                if (userInput == randomNumber) {
+                    print("Поздравляю! Задуманное число $userInput")
+                    break
+                } else if (userInput > randomNumber) {
+                    print("Ваше число больше задуманного, пожалуйста продолжаем.")
+                } else
+                    print("Ваше число меньше задуманного, пожалуйста продолжаем.")
             }
         }
 
@@ -51,14 +57,14 @@ object KotlinWorkshop2 {
 
         // TODO 2: Раскомментируй. Проинициализируй "numbersArray".
         //  "numbersArray" это массив целочисленных значений, длинной 5 чисел.
-//        val numbersArray =
+        val numbersArray = arrayOf(1, 2, 3, 4, 5)
 
         // TODO 3: Раскомментируй. Проинициализируй свойство "size" длинной массива "numbersArray".
         //  Измени условия повтора бесконечного цикла while так, чтобы он стал конечным и выполнился не более "size" раз.
         println("\n Программа 2. \"Введите коллекцию чисел\"")
-//        val size =
+        val size = numbersArray.size
         var counter = 0
-        while (true) {
+        while (counter < size) {
             print("Введите число в диапазоне 0..10 включительно: ")
             val userInput: Int = scanner.nextInt()
 
@@ -68,8 +74,10 @@ object KotlinWorkshop2 {
             //  - Если введено 9 - сложи и добавь (2 + size);
             //  - Иначе не добавляй ничего.
             //  Используй выражение "When".
-            when {
-
+            when (userInput){
+                3 -> numbersArray.set(counter, 3)
+                5 -> numbersArray.set(counter, 5 * numbersArray.size)
+                9 -> numbersArray.set(counter, 2 + numbersArray.size)
             }
 
             counter++
@@ -77,6 +85,13 @@ object KotlinWorkshop2 {
 
         // TODO 5: Выведи в консоль значения элементов массива и индекс, на котором они находятся.
         //  Новый элемент на новой строке. Это должно выглядеть как "индекс: значение".
+
+        counter = 0
+        while (counter < numbersArray.size) {
+            val value = numbersArray[counter]
+            print("$counter : $value\n")
+            counter++
+        }
 
     }
 

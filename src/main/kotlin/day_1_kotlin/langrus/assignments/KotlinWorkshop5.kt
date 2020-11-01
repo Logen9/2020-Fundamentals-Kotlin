@@ -29,15 +29,34 @@ class Bicycle: Transport(1) {
 //  См. ниже.
 // ? Имена классов и файлов Котлин принято называть с заглавной буквы, в формате "camelCase".
 // Например: "SomeLongClassName"
-//interface ...
+interface Honkable {
+    fun honk()
+}
 
 // TODO 2: Создай свои собственные классы, например "Bus" и "Car".
 //  Эти классы не будут полностью написаны с нуля, они должны расширять общий класс "Transport",
 //  и дополнительно реализовывать придуманный тобой интерфейс.
 // ? Класс может наследовать только один класс, но реализовывать несколько интерфейсов, например:
 // class Kitty(): Cat, Cuteable, Sleepable, Furryable {}
-//class Bus ...
-//class Car ...
+class Bus() : Transport(42), Honkable {
+    override fun drive() {
+        println("Ride a bus!.")
+    }
+
+    override fun honk() {
+        println("Honk! Peace was not an option")
+    }
+}
+
+class Car() : Transport(5), Honkable {
+    override fun drive() {
+        println("Ride a car!.")
+    }
+
+    override fun honk() {
+        println("Honk! Honk!")
+    }
+}
 
 // TODO 3: Протестируй работоспособность твоего транспорта.
 object VehiclesTest {
@@ -48,21 +67,27 @@ object VehiclesTest {
         testBus()
         testCar()
         testBicycle()
+        testBusParts()
     }
 
     private fun testBus() {
         println("Testing how bus drives...")
-//        val bus = ...
+        val bus = Bus()
+        bus.drive()
+        bus.honk()
     }
 
     private fun testCar() {
         println("Testing how car drives...")
-//        val car = ...
+        val car = Car()
+        car.drive()
+        car.honk()
     }
 
     private fun testBicycle() {
         println("Testing how bicycle drives...")
-//        ...
+        val bicycle = Bicycle()
+        bicycle.drive()
     }
 
 
@@ -73,10 +98,14 @@ object VehiclesTest {
     //  Т.е. каждый набор независимых свойств - отдельно, чтобы в тестируемой сущности были скрыты все свойства,
     //  не принадлежащие к данному набору.
     private fun testBusParts() {
-        println("Testing bus's feature 1...")
 
+        val bus = Bus()
+        println("Testing bus's feature 1...")
+        val busCore : Driveable = bus
+        busCore.drive()
 
         println("Testing bus's feature 2...")
-
+        val busHorn : Honkable = bus
+        busHorn.honk()
     }
 }

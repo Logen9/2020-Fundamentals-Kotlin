@@ -39,7 +39,7 @@ object KotlinWorkshop3 {
             // TODO 1: Раскомментируй.
             //  Объяви функцию "playRound": она должна принимать на вход два Int аргумента и возвращать Boolean.
             //  См. ниже.
-//            guessed = playRound(userInput, randomNumber)
+            guessed = playRound(userInput, randomNumber)
 
             counter++
         }
@@ -56,10 +56,23 @@ object KotlinWorkshop3 {
     //  Если введено число больше "randomNumber", выведи сообщение "Your Guess is higher, continue." и верни false;
     //  Если введено число меньше "randomNumber", выведи сообщение "Your Guess is lower, continue." и верни false.
     //  Можно использовать наработки из workshop 2, с отличием, что здесь это вынесенная функция, нет цикла и возвращает результат.
-//    private fun playRound(...) : ... {
-//
-//        return false
-//    }
+    private fun playRound(userInput: Int, randomNumber: Int) : Boolean {
+        return when {
+            userInput > randomNumber -> {
+                print("Your Guess is higher, continue.\n")
+                false
+            }
+            userInput < randomNumber -> {
+                print("Your Guess is lower, continue.\n")
+                false
+            }
+            else -> {
+                print("Congratulations!\n")
+                true
+            }
+        }
+
+    }
 
 
 
@@ -69,29 +82,29 @@ object KotlinWorkshop3 {
     //  которая будет собирать статистику и печатать результат. См. ниже.
     private fun printGameStats(guesses: IntArray, guessCounter: Int, randomNumber: Int) {
         // TODO 3: Раскомментируй. Выведи общее число попыток ввода.
-//        printTotalCountOfGuesses(guessCounter)
+        printTotalCountOfGuesses(guessCounter)
 
         // TODO 4: Раскомментируй.
         //  Напиши функцию высшего порядка "countHigherGuesses" для вывода всех попыток воода, которые оказались выше "randomNumber".
         //  Функция должна возвращать число таких попыток как результат.
-//         countHigherGuesses(guesses, randomNumber) { counter ->
-//             println("Total count of higher guesses: $counter\n")
-//         }
+         countHigherGuesses(guesses, randomNumber) { counter ->
+             println("Total count of higher guesses: $counter\n")
+         }
 
         // TODO 5: Раскомментируй.
         //  Напиши lambda-выражение "countLowerGuesses" для вывода всех попыток воода, которые оказались ниже "randomNumber".
         //  И не равны значению "-1", заданному элементу массива при инициализации массива.
-        // countLowerGuesses(guesses, randomNumber)
+        print ("Lower guesses: " + countLowerGuesses(guesses, randomNumber) + "\n")
 
         // TODO 6: Раскомментируй.
         //  Выведи результаты всех попыток ввода, строка за строкой.
         //  Используй функцию высшего порядка ".forEach".
-        // guesses
+        guesses.forEach { if (it != -1) print("$it\n") }
     }
 
     // TODO 3
     private fun printTotalCountOfGuesses(guessCounter: Int) {
-        TODO()
+        println("Total count of guesses: $guessCounter\n")
     }
 
     // TODO 4
@@ -102,12 +115,21 @@ object KotlinWorkshop3 {
 
     ): Int {
         var counter = 0
-        TODO()
+        var highGuesses = 0
+
+        while (counter < guesses.size) {
+            if (guesses[counter] > randomNumber && guesses[counter] != -1) {
+                highGuesses++
+            }
+            counter++
+        }
+        printer(highGuesses)
+        return highGuesses
     }
 
     // TODO 5
-    val countLowerGuesses: (IntArray, Int) -> Unit = { guesses, randomNumber ->
-        TODO()
+    val countLowerGuesses: (IntArray, Int) -> Int = { guesses, randomNumber ->
+        guesses.filter { it < randomNumber && it != -1 }.size
     }
 
 
